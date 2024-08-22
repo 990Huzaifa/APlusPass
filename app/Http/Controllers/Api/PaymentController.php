@@ -15,6 +15,7 @@ use Exception;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use App\Mail\Admin\InvoiceMail;
+use App\Mail\User\SuccessMail;
 use App\Services\GoogleSheetService;
 
 class PaymentController extends Controller
@@ -309,6 +310,14 @@ class PaymentController extends Controller
                 'description' => $description,
                 'amount' => $amount,
                 'paymentType'=>$paymentType
+                ]));
+
+                Mail::to('surajkumar00244vk@gmail.com')->send(new SuccessMail([
+                    'payerName' => $payerName,
+                    'email' => $payerEmail,
+                    'description' => $description,
+                    'amount' => $amount,
+                    'paymentType'=>$paymentType
                 ]));
             
             $range = 'transaction!A2:D2';
