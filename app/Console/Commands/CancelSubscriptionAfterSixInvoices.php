@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Payment;
 use Illuminate\Console\Command;
 use Stripe\Stripe;
+use Stripe\Invoice;
 use Stripe\Subscription;
 use App\Models\Payments;
 
@@ -24,27 +25,38 @@ class CancelSubscriptionAfterSixInvoices extends Command
     {
         $subscriptions = Payment::where('payment_type', 'subscription')->get();
 
-        foreach ($subscriptions as $subscription) {
-            $stripeSubscriptionId = $subscription->stripe_subscription_id;
+        // foreach ($subscriptions as $subscription) {
+        //     $stripeSubscriptionId = $subscription->stripe_subscription_id;
 
-            // Retrieve the subscription from Stripe
-            $stripeSubscription = Subscription::retrieve($stripeSubscriptionId);
+        //     $invoices = Invoice::all([
+        //         'subscription' => $stripeSubscriptionId,
+        //         'status' => 'paid',
+        //         'limit' => 100,
+        //     ]);
+        //     $paidInvoiceCount = count($invoices->data);
+        //     // Retrieve the subscription from Stripe
+            
 
-            // Count the number of paid invoices
-            $invoices = $stripeSubscription->invoices(['limit' => 100, 'status' => 'paid']);
 
-            if (count($invoices->data) >= 6) {
-                // Cancel the subscription on Stripe
-                $stripeSubscription->cancel();
+        //     if ($paidInvoiceCount >= 6) {
+        //         // Cancel the subscription on Stripe
+        //         $stripeSubscription = Subscription::retrieve($stripeSubscriptionId);
+        //         $stripeSubscription->cancel();
 
-                // Update local subscription status
-                $subscription->status = 'canceled';
-                $subscription->save();
+        //         // Update local subscription status
+        //         $subscription->status = 'canceled';
+        //         $subscription->save();
 
-                $this->info("Subscription {$stripeSubscriptionId} canceled after 6 invoices.");
-            }
-        }
+        //         $this->info("Subscription {$stripeSubscriptionId} canceled after 6 invoices.");
+        //     }
+        // }
 
-        return Command::SUCCESS;
+        $invoices = Invoice::all([
+            'subscription' => 'sub_1PqZj5JIWkcGZUIaKlnkSmLk',
+            'status' => 'paid',
+            'limit' => 100,
+        ]);
+
+        return $invoices;
     }
 }
