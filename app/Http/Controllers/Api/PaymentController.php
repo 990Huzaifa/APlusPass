@@ -312,13 +312,13 @@ class PaymentController extends Controller
                 'paymentType'=>$paymentType
                 ]));
 
-                Mail::to('surajkumar00244vk@gmail.com')->send(new SuccessMail([
-                    'payerName' => $payerName,
-                    'email' => $payerEmail,
-                    'description' => $description,
-                    'amount' => $amount,
-                    'paymentType'=>$paymentType
-                ]));
+            Mail::to('surajkumar00244vk@gmail.com')->send(new SuccessMail([
+                'payerName' => $payerName,
+                'email' => $payerEmail,
+                'description' => $description,
+                'amount' => $amount,
+                'paymentType'=>$paymentType
+            ]));
             
             $range = 'transaction!A2:D2';
             $this->googleSheetsService->appendDataToSheet($data, $range);
