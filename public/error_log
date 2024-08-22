@@ -1,0 +1,16 @@
+[16-Aug-2024 13:13:31 UTC] Stripe Notice: Undefined property of Stripe\StripeObject instance: payment_type
+[16-Aug-2024 13:13:31 UTC] Stripe Notice: Undefined property of Stripe\StripeObject instance: description
+[16-Aug-2024 13:13:31 UTC] Stripe Notice: Undefined property of Stripe\StripeObject instance: name
+[16-Aug-2024 13:16:34 UTC] Stripe Notice: Undefined property of Stripe\StripeObject instance: payment_type
+[16-Aug-2024 13:16:34 UTC] Stripe Notice: Undefined property of Stripe\StripeObject instance: description
+[16-Aug-2024 13:16:34 UTC] Stripe Notice: Undefined property of Stripe\StripeObject instance: name
+[16-Aug-2024 13:27:04 UTC] Stripe Notice: Undefined property of Stripe\Checkout\Session instance: name
+[16-Aug-2024 13:27:42 UTC] Stripe Notice: Undefined property of Stripe\Checkout\Session instance: name
+[16-Aug-2024 13:27:49 UTC] Stripe Notice: Undefined property of Stripe\Checkout\Session instance: name
+[16-Aug-2024 13:27:55 UTC] Stripe Notice: Undefined property of Stripe\Checkout\Session instance: name
+[16-Aug-2024 13:28:25 UTC] Stripe Notice: Undefined property of Stripe\Checkout\Session instance: name
+[16-Aug-2024 13:28:36 UTC] Stripe Notice: Undefined property of Stripe\Checkout\Session instance: name
+[16-Aug-2024 14:51:58 UTC] PHP Fatal error:  Cannot use Illuminate\Support\Facades\Session as Session because the name is already in use in /home/zetdsqxs/apluspass.zetdigi.com/apluspass/app/Http/Controllers/Api/PaymentController.php on line 18
+[16-Aug-2024 14:52:29 UTC] PHP Fatal error:  Cannot use Illuminate\Support\Facades\Session as Session because the name is already in use in /home/zetdsqxs/apluspass.zetdigi.com/apluspass/app/Http/Controllers/Api/PaymentController.php on line 18
+[17-Aug-2024 04:18:26 UTC] PHP Fatal error:  Cannot use empty array elements in arrays in /home/zetdsqxs/apluspass.zetdigi.com/apluspass/app/Http/Controllers/Api/PaymentController.php on line 83
+[17-Aug-2024 04:18:32 UTC] PHP Fatal error:  Cannot use empty array elements in arrays in /home/zetdsqxs/apluspass.zetdigi.com/apluspass/app/Http/Controllers/Api/PaymentController.php on line 83

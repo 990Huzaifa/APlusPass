@@ -1,0 +1,8 @@
+[16-Aug-2024 07:01:33 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Support\Facades\Route" not found in /home/zetdsqxs/apluspass.zetdigi.com/apluspass/routes/api.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/zetdsqxs/apluspass.zetdigi.com/apluspass/routes/api.php on line 19
+[16-Aug-2024 07:06:59 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Support\Facades\Route" not found in /home/zetdsqxs/apluspass.zetdigi.com/apluspass/routes/api.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/zetdsqxs/apluspass.zetdigi.com/apluspass/routes/api.php on line 19
