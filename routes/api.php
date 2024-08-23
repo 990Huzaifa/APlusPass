@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\LeadController;
 use App\Http\Controllers\Api\FaqController;
 use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\PaymentController;
+use App\Http\Controllers\Api\StripeWebhookController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -62,7 +63,7 @@ Route::post('pay',[PaymentController::class, 'pay']);
 Route::post('intent/payment',[PaymentController::class, 'createPaymentIntent']);
 Route::post('intent/subscription',[PaymentController::class, 'createSubscriptionStripe']);
 Route::post('/success', [PaymentController::class, 'success']);
-
+Route::post('/stripe/webhook', [StripeWebhookController::class, 'handleWebhook']);
 
 
 

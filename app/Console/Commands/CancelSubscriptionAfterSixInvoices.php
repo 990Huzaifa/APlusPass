@@ -7,7 +7,7 @@ use Illuminate\Console\Command;
 use Stripe\Stripe;
 use Stripe\Invoice;
 use Stripe\Subscription;
-use App\Models\Payments;
+use Carbon\Carbon;
 
 class CancelSubscriptionAfterSixInvoices extends Command
 {
@@ -23,40 +23,45 @@ class CancelSubscriptionAfterSixInvoices extends Command
     }
     public function handle()
     {
-        $subscriptions = Payment::where('payment_type', 'subscription')->get();
+        $subscriptions = Payment::where('payment_type', 'subscription')
+        ->where('status', 1)
+        ->get();
 
-        // foreach ($subscriptions as $subscription) {
-        //     $stripeSubscriptionId = $subscription->stripe_subscription_id;
+        foreach ($subscriptions as $subscription) {
+            $stripeSubscriptionId = $subscription->transaction_id;
+            $invoices = Invoice::all([
+                'subscription' => $stripeSubscriptionId,
+                'status' => 'paid',
+                'limit' => 100,
+            ]);
 
-        //     $invoices = Invoice::all([
-        //         'subscription' => $stripeSubscriptionId,
-        //         'status' => 'paid',
-        //         'limit' => 100,
-        //     ]);
-        //     $paidInvoiceCount = count($invoices->data);
-        //     // Retrieve the subscription from Stripe
+            $paidInvoices = $invoices->data;
+            $paidInvoiceCount = count($invoices->data);
+            // Retrieve the subscription from Stripe
             
 
 
-        //     if ($paidInvoiceCount >= 6) {
-        //         // Cancel the subscription on Stripe
-        //         $stripeSubscription = Subscription::retrieve($stripeSubscriptionId);
-        //         $stripeSubscription->cancel();
+             if ($paidInvoiceCount >= 6) {
 
-        //         // Update local subscription status
-        //         $subscription->status = 'canceled';
-        //         $subscription->save();
+                $sixthInvoice = $paidInvoices[5];  // 6th invoice (index 5 because it's zero-indexed)
 
-        //         $this->info("Subscription {$stripeSubscriptionId} canceled after 6 invoices.");
-        //     }
-        // }
+                $sixthInvoiceDate = Carbon::createFromTimestamp($sixthInvoice->created);
+                $currentDate = Carbon::now();
 
-        $invoices = Invoice::all([
-            'subscription' => 'sub_1PqZj5JIWkcGZUIaKlnkSmLk',
-            'status' => 'paid',
-            'limit' => 100,
-        ]);
+                // Cancel the subscription on Stripe
+                if ($currentDate->diffInMonths($sixthInvoiceDate) >= 6) {
+                    
+                    $stripeSubscription = Subscription::retrieve($stripeSubscriptionId);
+                    $stripeSubscription->cancel();
+                    
+                    
+                    $subscription->status = 0;
+                    $subscription->save();
+                }
+            }
+        }
 
-        return $invoices;
+
+        return 0;
     }
 }
